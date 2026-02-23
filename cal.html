@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-Mode Calculator - Typing Allowed</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f0f0; margin: 0; }
+        .calculator { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); width: 320px; }
+        #display { width: 100%; height: 60px; font-size: 24px; text-align: right; margin-bottom: 10px; padding: 0 15px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; }
+        .modes { display: flex; margin-bottom: 10px; }
+        .mode-btn { flex: 1; padding: 10px; margin: 0 2px; background: #ddd; border: none; cursor: pointer; border-radius: 5px; font-size: 14px; }
+        .mode-btn.active { background: #4CAF50; color: white; }
+        .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        button { padding: 15px; font-size: 18px; border: none; background: #e0e0e0; cursor: pointer; border-radius: 5px; }
+        button:hover { background: #d0d0d0; }
+        button:active { background: #c0c0c0; }
+        button.operator { background: #ff9500; color: white; }
+        button.function { background: #2196F3; color: white; }
+        button.bitwise { background: #9C27B0; color: white; }
+        .hidden { display: none !important; }
+        .wide { grid-column: span 2; }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="modes">
+            <button class="mode-btn active" onclick="switchMode('basic')">Basic</button>
+            <button class="mode-btn" onclick="switchMode('scientific')">Scientific</button>
+            <button class="mode-btn" onclick="switchMode('programmer')">Programmer</button>
+        </div>
+        <input type="text" id="display" oninput="validateInput()" onkeypress="handleKeyPress(event)">
+        
+        <div class="buttons" id="basic-buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">⌫</button>
+            <button class="operator" onclick="appendToDisplay('/')">/</button>
+            <button class="operator" onclick="appendToDisplay('*')">×</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button class="operator" onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button class="operator" onclick="appendToDisplay('+')">+</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('0')" class="wide">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button class="operator" onclick="calculate()" style="grid-column: span 2;">=</button>
+        </div>
+
+        <div class="buttons hidden" id="scientific-buttons">
+            <button onclick="appendToDisplay('(')">(</button>
+            <button onclick="appendToDisplay(')')">)</button>
+            <button class="function" onclick="appendToDisplay('sin(')">sin</button>
+            <button class="function" onclick="appendToDisplay('cos(')">cos</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">⌫</button>
+            <button class="function" onclick="appendToDisplay('log(')">log</button>
+            <button class="function" onclick="appendToDisplay('√(')">√</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button class="operator" onclick="appendToDisplay('/')">/</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button class="operator" onclick="appendToDisplay('*')">×</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button class="operator" onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button class="function" onclick="appendToDisplay('π')">π</button>
+            <button class="operator" onclick="calculate()" style="grid-column: span 2;">=</button>
+        </div>
+
+        <div class="buttons hidden" id="programmer-buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">⌫</button>
+            <button class="bitwise" onclick="bitwiseOp('&')">AND</button>
+            <button class="bitwise" onclick="bitwiseOp('|')">OR</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button class="bitwise" onclick="bitwiseOp('^')">XOR</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button class="bitwise" onclick="bitwiseOp('<<')">«</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button class="bitwise" onclick="bitwiseOp('>>')">»</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="toHex()">Hex</button>
+            <button onclick="toBin()">Bin</button>
+            <button onclick="calculate()" style="grid-column: span 2;">=</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentMode = 'basic';
+
+        function validateInput() {
+            let value = display.value;
+            let validChars = /^[0-9+\-*/.()×√πsin\(\)cos\(\)log\(\)A-Fa-f01&|^<<>> ]*$/;
+            if (!validChars.test(value) || /[a-zA-Z]/.test(value.replace(/[A-F]/gi, ''))) {
+                display.value = 'Error';
+                setTimeout(clearDisplay, 1500);
+                return false;
+            }
+            return true;
+        }
+
+        function handleKeyPress(event) {
+            let key = event.key;
+            if (currentMode === 'programmer' && /[a-fA-F]/.test(key)) return;
+            if (!/[0-9+\-*/.() ]/.test(key) && key.length === 1) {
+                event.preventDefault();
+            }
+        }
+
+        function appendToDisplay(value) {
+            display.value += value;
+            validateInput();
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+            validateInput();
+        }
+
+        function calculate() {
+            try {
+                let expr = display.value
+                    .replace(/×/g, '*')
+                    .replace(/√\(/g, 'Math.sqrt(')
+                    .replace(/π/g, 'Math.PI')
+                    .replace(/sin\(/g, 'Math.sin(')
+                    .replace(/cos\(/g, 'Math.cos(')
+                    .replace(/log\(/g, 'Math.log10(');
+                let result = eval(expr);
+                display.value = (isNaN(result) || !isFinite(result)) ? 'Error' : parseFloat(result.toPrecision(12));
+            } catch {
+                display.value = 'Error';
+            }
+        }
+
+        function bitwiseOp(op) {
+            appendToDisplay(` ${op} `);
+        }
+
+        function toHex() {
+            try {
+                let num = parseInt(display.value, 10);
+                display.value = num.toString(16).toUpperCase();
+            } catch {
+                display.value = 'Error';
+            }
+        }
+
+        function toBin() {
+            try {
+                let num = parseInt(display.value, 10);
+                display.value = num.toString(2);
+            } catch {
+                display.value = 'Error';
+            }
+        }
+
+        function switchMode(mode) {
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.buttons').forEach(b => b.classList.add('hidden'));
+            document.getElementById(mode + '-buttons').classList.remove('hidden');
+            currentMode = mode;
+            clearDisplay();
+        }
+    </script>
+</body>
+</html>
