@@ -47,7 +47,8 @@ HTML
 🔓 Yours free!
 
 ## 📺 Creator
-ProAnimatorYT
+ProAnimatorYT Made This Calculator!
+
 **Visit My YouTube Channel!**  
 👉 [Pro-Animator-Real](https://www.youtube.com/@Pro-Animator-Real)
 
