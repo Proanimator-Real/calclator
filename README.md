@@ -1,35 +1,62 @@
-# A HTML Calclator
+# A HTML Calculator
 
-A fully functional HTML calculator with Basic, Scientific, and Programmer modes. Type directly in display - letters automatically show Error!
+A fully functional HTML calculator with **Basic**, **Scientific**, and **Programmer** modes. 
+Type directly in display - letters automatically show **Error**!
 
-✨ Features
-3 Switchable Modes: Basic (+-×÷) | Scientific (sin/cos/log/√/π) | Programmer (AND/OR/XOR/Hex/Bin)
+## ✨ Features
 
-Direct Typing: Type equations like 2+3*4
+- **3 Switchable Modes**: Basic (+-×÷) | Scientific (sin/cos/log/√/π) | Programmer (AND/OR/XOR/Hex/Bin)
+- **Direct Typing**: Type equations like `2+3*4` or `sin(3.14)`
+- **Smart Validation**: Letters ("hello") → **Error** (auto-clears 1.5s)
+- **Responsive Design**: Desktop + Mobile perfect
+- **Single HTML File**: No deps, copy-paste → instant use!
 
-Responsive Design:
+## 🚀 Quick Start
 
-Single HTML File: No dependencies, copy-paste ready
+1. **Download** ZIP file with calculator.html
+2. **Save as** `cal.html` 
+3. **Double-click** → opens in browser
+4. **Calculate away** 🎉
 
-🚀 Quick Start
-Download The File (Code in a zip)
+Basic: 123 + 456 = 579
+Scientific: √16 + π = ~5.14
+Programmer: 255 & 15 = 15 (Hex: FF & F)
 
-Save as cal.html
-
-Double-click to open in browser
-
-Start calculating!
-
-❤️ Made With
 text
+
+## 📱 Modes Table
+
+| Mode       | Example          | Result |
+|------------|------------------|--------|
+| **Basic**  | `15/3`           | `5`    |
+| **Sci**    | `sin(3.14)`      | `0.0016` |
+| **Prog**   | `42 toHex()`     | `2A`   |
+
+## ❤️ Tech Stack
+
 HTML
-No frameworks • No libraries • Pure browser
-⭐ Star this repo!
-📱 Works offline
-🌎 MIT License - Free to use/modify
+100% Browser Native
 
-### Thanks For Reading This Readme!
+## 🌟 Why Awesome?
 
-And Thanks For Visiting This Github Creation
+- **Offline**: No internet needed
+- **Lightweight**: ~10KB total  
 
-Visit My YouTube Channel! https://www.youtube.com/@Pro-Animator-Real
+## 🎁 Get It Now
+
+⭐ Star Repo
+📥 Download ZIP
+🔓 Yours free!
+
+## 📺 Creator
+ProAnimatorYT
+**Visit My YouTube Channel!**  
+👉 [Pro-Animator-Real](https://www.youtube.com/@Pro-Animator-Real)
+
+## 🙏 Final Thanks
+
+### Thanks For Reading This Readme!  
+**And Thanks For Visiting This Github Creation** ✨
+
+---
+*Pure HTML Calculator Magic* | *Feb 22, 2026* | *Made w/ ❤️*
