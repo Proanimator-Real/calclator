@@ -47,7 +47,8 @@ HTML
 🔓 Yours free!
 
 ## 📺 Creator
-ProAnimatorYT Made This Calculator!
+AnimatorYT Made This Calculator!
+I Can't Change My **Name** To **AnimatorYT**
 
 **Visit My YouTube Channel!**  
 👉 [Animator-Real](https://www.youtube.com/@Animator-Real-m9r)
