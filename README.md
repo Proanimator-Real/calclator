@@ -37,7 +37,7 @@ HTML
 
 ## 🌟 Why Awesome?
 
-- **Offline**: No internet needed
+- **Offline**: No internet needed **(*Download Required.*)**
 - **Lightweight**: ~10KB total  
 
 ## 🎁 Get It Now
@@ -50,7 +50,7 @@ HTML
 ProAnimatorYT Made This Calculator!
 
 **Visit My YouTube Channel!**  
-👉 [Pro-Animator-Real](https://www.youtube.com/@Pro-Animator-Real)
+👉 [Animator-Real](https://www.youtube.com/@Animator-Real-m9r)
 
 ## 🙏 Final Thanks
 
